@@ -9,4 +9,4 @@ Solution :
   ssh uname@ip
   sudo yum update && sudo yum install git
   cd /opt/
-  touch filename.git
+ sudo git init --bare media.git
