@@ -6,4 +6,18 @@ Copy sample index.html file from jump host to storage server under cloned reposi
 
 
 solution : 
+
 sudo scp /tmp/index.html  natasha@ststor01:/tmp
+
+ssh natasha@ststor01
+
+ sudo su -
+
+cd   /usr/src/kodekloudrepos/demo/
+ ls
+ cp /tmp/index.html  .
+ ls
+index.html  info.txt  welcome.txt
+ git add index.html 
+ git commit -m "added index.html"
+ git push origin master
