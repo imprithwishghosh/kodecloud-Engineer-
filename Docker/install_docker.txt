@@ -1,0 +1,17 @@
+:Last week the Nautilus DevOps team met with the application development team and decided to containerize several of their applications. 
+:The DevOps team wants to do some testing per the following
+
+: Install docker-ce and docker-compose packages on App Server 
+1. Start docker service.
+
+curl -fsSL https://get.docker.com -o get-docker.shsudo sh get-docker.sh
+sudo groupadd dockersudo usermod -aG docker $USER 
+newgrp docker
+sudo systemctl start docker
+docker --version
+docker ps
+
+Docker Compose Insatll :::L:::::::::
+sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+sudo chmod +x /usr/local/bin/docker-composesudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
+docker-compose --version
