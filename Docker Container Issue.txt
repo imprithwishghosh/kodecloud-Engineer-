@@ -5,3 +5,8 @@ There is a static website running within a container named nautilus, this contai
 
     The website should run on host port 8080 on App Server 1 i.e command curl http://localhost:8080/ should work on App Server 1.
 
+solution :
+sudo su 
+docker restart natulius
+ 
+docker run -d -v /var/www/html:/usr/local/apache2/htdocs -p 80:8080 --rm httpd:latest
