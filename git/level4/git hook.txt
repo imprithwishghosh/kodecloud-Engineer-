@@ -1,0 +1,105 @@
+The Nautilus application development team was working on a git repository /opt/news.git which is cloned under /usr/src/kodekloudrepos directory present on Storage server in Stratos DC. The team want to setup a hook on this repository, please find below more details:
+
+
+    Merge the feature branch into the master branch`, but before pushing your changes complete below point.
+
+    Create a post-update hook in this git repository so that whenever any changes are pushed to the master branch, it creates a release tag with name release-2023-06-15, where 2023-06-15 is supposed to be the current date. For example if today is 20th June, 2023 then the release tag must be release-2023-06-20. Make sure you test the hook at least once and create a release tag for today's release.
+
+    Finally remember to push your changes.
+
+
+solution ::
+ssh into server
+[natasha@ststor01 ~]$ cd /opt/
+[natasha@ststor01 opt]$ ls
+apps.git
+[natasha@ststor01 opt]$ cd apps.git/
+[natasha@ststor01 apps.git]$ ls
+HEAD  branches  config  description  hooks  info  objects  refs
+[natasha@ststor01 apps.git]$ cd hooks/
+[natasha@ststor01 hooks]$ ls
+applypatch-msg.sample      pre-push.sample
+commit-msg.sample          pre-rebase.sample
+fsmonitor-watchman.sample  pre-receive.sample
+post-update.sample         prepare-commit-msg.sample
+pre-applypatch.sample      push-to-checkout.sample
+pre-commit.sample          update.sample
+pre-merge-commit.sample
+[natasha@ststor01 hooks]$ cat post-update.sample 
+#!/bin/sh
+#
+# An example hook script to prepare a packed repository for use over
+# dumb transports.
+#
+# To enable this hook, rename this file to "post-update".
+
+exec git update-server-info
+[natasha@ststor01 hooks]$ vi post-update.sample 
+[natasha@ststor01 hooks]$ sudo chmod 777 post-update.sample 
+
+We trust you have received the usual lecture from the local System
+Administrator. It usually boils down to these three things:
+
+    #1) Respect the privacy of others.
+    #2) Think before you type.
+    #3) With great power comes great responsibility.
+
+[sudo] password for natasha: 
+[natasha@ststor01 hooks]$ vi post-update.sample 
+[natasha@ststor01 hooks]$ mv post-update.sample post-update
+mv: cannot move 'post-update.sample' to 'post-update': Permission denied
+[natasha@ststor01 hooks]$ sudo mv post-update.sample post-update
+[natasha@ststor01 hooks]$ ls
+applypatch-msg.sample      pre-push.sample
+commit-msg.sample          pre-rebase.sample
+fsmonitor-watchman.sample  pre-receive.sample
+post-update                prepare-commit-msg.sample
+pre-applypatch.sample      push-to-checkout.sample
+pre-commit.sample          update.sample
+pre-merge-commit.sample
+[natasha@ststor01 hooks]$ git checkout master
+fatal: detected dubious ownership in repository at '/opt/apps.git'
+To add an exception for this directory, call:
+
+        git config --global --add safe.directory /opt/apps.git
+[natasha@ststor01 hooks]$ git config --global --add safe.directory /opt/apps.git
+[natasha@ststor01 hooks]$ git checkout masterfatal: this operation must be run in a work tree
+[natasha@ststor01 hooks]$ git branch
+  feature
+* master
+[natasha@ststor01 hooks]$ git merge feature
+fatal: this operation must be run in a work tree
+[natasha@ststor01 hooks]$ cd /usr/src/kodekloudrepos/
+[natasha@ststor01 kodekloudrepos]$ git branch
+fatal: not a git repository (or any of the parent directories): .git
+[natasha@ststor01 kodekloudrepos]$ cd apps/
+[natasha@ststor01 apps]$ git branch
+fatal: detected dubious ownership in repository at '/usr/src/kodekloudrepos/apps'
+To add an exception for this directory, call:
+
+        git config --global --add safe.directory /usr/src/kodekloudrepos/apps
+[natasha@ststor01 apps]$ git config --global --add safe.directory /usr/src/kodekloudrepos/apps
+[natasha@ststor01 apps]$ git branch* feature
+  master
+[natasha@ststor01 apps]$ git checkout master
+fatal: Unable to create '/usr/src/kodekloudrepos/apps/.git/index.lock': Permission denied
+[natasha@ststor01 apps]$ sudo git checkout master
+Switched to branch 'master'
+Your branch is up to date with 'origin/master'.
+[natasha@ststor01 apps]$ git merge featurefatal: update_ref failed for ref 'ORIG_HEAD': cannot lock ref 'ORIG_HEAD': Unable to create '/usr/src/kodekloudrepos/apps/.git/ORIG_HEAD.lock': Permission denied
+[natasha@ststor01 apps]$ sudo git merge feature
+Updating e113754..e172889
+Fast-forward
+ feature.txt | 1 +
+ 1 file changed, 1 insertion(+)
+ create mode 100644 feature.txt
+[natasha@ststor01 apps]$ sudo git push origin master
+Total 0 (delta 0), reused 0 (delta 0), pack-reused 0
+remote: hooks/post-update: line 1: !/bin/sh: No such file or directory
+To /opt/apps.git
+   e113754..e172889  master -> master
+[natasha@ststor01 apps]$ sudo git pull origin master
+From /opt/apps
+ * branch            master     -> FETCH_HEAD
+Already up to date.
+[natasha@ststor01 apps]$ 
