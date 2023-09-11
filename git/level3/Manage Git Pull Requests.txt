@@ -1,0 +1,3 @@
+scenario is :
+max and tom are the users. first task is to create a PR with max user along with specified details and tom has to review and merge that PR into master branch .
+
