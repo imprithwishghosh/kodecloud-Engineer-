@@ -1,0 +1,175 @@
+A new developer just joined the Nautilus development team and has been assigned a new project for which he needs to create a new repository under his account on Gitea server. Additionally, there is some existing data that need to be added to the repo. Below you can find more details about the task:
+
+Click on the Gitea UI button on the top bar. You should be able to access the Gitea UI. Login to Gitea server using username max and password Max_pass123.
+
+a. Create a new git repository story_beta under max user.
+
+b. SSH into storage server using user max and password Max_pass123 and clone this newly created repository under user max home directory i.e /home/max.
+
+c. Copy all files from location /usr/dba to the repository and commit/push your changes to the master branch. The commit message must be "add stories" (must be done in single commit).
+
+d. Create a new branch max_demo from master.
+
+e. Copy a file story-index-max.txt from location /tmp/stories/ to the repository. This file has a typo, which you can fix by changing the word Mooose to Mouse. Commit and push the changes to the newly created branch. Commit message must be "typo fixed for Mooose" (must be done in single commit).
+
+Note: For these kind of scenarios requiring changes to be done in a web UI, please take screenshots so that you can share it with us for review in case your task is marked incomplete. You may also consider using a screen recording software such as loom.com to record and share your work.
+
+
+
+solution ::
+
+
+Last login: Mon Sep 11 13:52:09 UTC 2023 on pts/0
+thor@jump_host ~$ ssh max@172.16.238.15
+The authenticity of host '172.16.238.15 (172.16.238.15)' can't be established.
+ECDSA key fingerprint is SHA256:0z85j/k+4Nf8WKbHJzxo1AOv4FeRA8LPET2N3BEkYyo.
+Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
+Warning: Permanently added '172.16.238.15' (ECDSA) to the list of known hosts.
+max@172.16.238.15's password: 
+Welcome to xFusionCorp Storage server.
+max $ pwd
+/home/max
+max $ cd /usr/finance/
+max $ ls
+frogs-and-ox.txt    lion-and-mouse.txt
+max $ git clone http://git.stratos.xfusioncorp.com/max/story_blog.git
+Cloning into 'story_blog'...
+warning: You appear to have cloned an empty repository.
+Checking connectivity... done.
+max $ cd /usr/finance/
+max $ sudo cp frogs-and-ox.txt lion-and-mouse.txt /home/max/.
+./             .bash_profile  .vimrc         
+../            .bashrc        
+max $ ls
+frogs-and-ox.txt    lion-and-mouse.txt  story_blog
+max $ pwd
+/usr/finance
+max $ sudo rmdir story_blog/
+rmdir: 'story_blog/': Directory not empty
+max $ sudo rmdir -rf story_blog/
+rmdir: unrecognized option: r
+BusyBox v1.24.2 (2017-11-23 08:52:33 GMT) multi-call binary.
+
+Usage: rmdir [OPTIONS] DIRECTORY...
+
+Remove DIRECTORY if it is empty
+
+        -p      Include parents
+max $ sudo rmdir -p story_blog/
+rmdir: 'story_blog/': Directory not empty
+max $ sudo rmdir -rfp story_blog/
+rmdir: unrecognized option: r
+BusyBox v1.24.2 (2017-11-23 08:52:33 GMT) multi-call binary.
+
+Usage: rmdir [OPTIONS] DIRECTORY...
+
+Remove DIRECTORY if it is empty
+
+        -p      Include parents
+max $ ls
+frogs-and-ox.txt    lion-and-mouse.txt  story_blog
+max $ cd /home/max/
+max $ git clone http://git.stratos.xfusioncorp.com/max/story_blog.gitCloning into 'story_blog'...
+warning: You appear to have cloned an empty repository.
+Checking connectivity... done.
+max $ cd story_blog/
+max $ cd /usr/finance/
+max $ ls
+frogs-and-ox.txt    lion-and-mouse.txt  story_blog
+max $ sudo cp frogs-and-ox.txt lion-and-mouse.txt /home/max/story_blog/max $ cd /home/max/
+max $ ls
+story_blog
+max $ git branch
+fatal: Not a git repository (or any of the parent directories): .git
+max $ cd story_blog/
+max $ git branch
+max $ git add .
+max $ git commit -m "add stories"
+[master (root-commit) f40e99a] add stories
+ Committer: Linux User <max@ststor01.stratos.xfusioncorp.com>
+Your name and email address were configured automatically based
+on your username and hostname. Please check that they are accurate.
+You can suppress this message by setting them explicitly. Run the
+following command and follow the instructions in your editor to edit
+your configuration file:
+
+    git config --global --edit
+
+After doing this, you may fix the identity used for this commit with:
+
+    git commit --amend --reset-author
+
+ 2 files changed, 42 insertions(+)
+ create mode 100644 frogs-and-ox.txt
+ create mode 100644 lion-and-mouse.txt
+max (master)$ git push origin master
+Username for 'http://git.stratos.xfusioncorp.com': max
+Password for 'http://max@git.stratos.xfusioncorp.com': 
+Counting objects: 4, done.
+Delta compression using up to 36 threads.
+Compressing objects: 100% (4/4), done.
+Writing objects: 100% (4/4), 1.19 KiB | 0 bytes/s, done.
+Total 4 (delta 0), reused 0 (delta 0)
+remote: . Processing 1 references
+remote: Processed 1 references in total
+To http://git.stratos.xfusioncorp.com/max/story_blog.git
+ * [new branch]      master -> master
+max (master)$ git checkout -b max_games
+Switched to a new branch 'max_games'
+max (max_games)$ cd /tmp/stories/
+max $ ls
+donkey-and-dog-author-info.txt     hare-and-tortoise.txt
+donkey-and-dog.txt                 lion-and-mouse-author-info.txt
+fox-and-grapes-author-info.txt     lion-and-mouse-error.txt
+fox-and-grapes.txt                 lion-and-mouse.txt
+frogs-and-ox-author-info.txt       story-index-good.txt
+frogs-and-ox-half.txt              story-index-max.txt
+frogs-and-ox.txt                   story-index-sarah.txt
+hare-and-tortoise-author-info.txt  wolf-and-goat-author-info.txt
+hare-and-tortoise-partial-1.txt    wolf-and-goat.txt
+hare-and-tortoise-partial-2.txt
+max $ sudo cp story-index-max.txt /home/max/story_blog/
+max $ cd /home/max/story_blog/
+max (max_games)$ ls
+frogs-and-ox.txt     lion-and-mouse.txt   story-index-max.txt
+max (max_games)$ vi story-index-max.txt 
+max (max_games)$ chmod 777 story-index-max.txt 
+chmod: story-index-max.txt: Operation not permitted
+max (max_games)$ vi story-index-max.txt 
+max (max_games)$ sudo chmod 777 story-index-max.txt 
+max (max_games)$ vi story-index-max.txt 
+max (max_games)$ git add .
+max (max_games)$ git commit -m "typo fixed for Mooose"
+[max_games ad5bc77] typo fixed for Mooose
+ Committer: Linux User <max@ststor01.stratos.xfusioncorp.com>
+Your name and email address were configured automatically based
+on your username and hostname. Please check that they are accurate.
+You can suppress this message by setting them explicitly. Run the
+following command and follow the instructions in your editor to edit
+your configuration file:
+
+    git config --global --edit
+
+After doing this, you may fix the identity used for this commit with:
+
+    git commit --amend --reset-author
+
+ 1 file changed, 4 insertions(+)
+ create mode 100755 story-index-max.txt
+max (max_games)$ git push origin max_games
+Username for 'http://git.stratos.xfusioncorp.com': max
+Password for 'http://max@git.stratos.xfusioncorp.com': 
+Counting objects: 3, done.
+Delta compression using up to 36 threads.
+Compressing objects: 100% (3/3), done.
+Writing objects: 100% (3/3), 418 bytes | 0 bytes/s, done.
+Total 3 (delta 0), reused 0 (delta 0)
+remote: 
+remote: Create a new pull request for 'max_games':
+remote:   http://git.stratos.xfusioncorp.com/max/story_blog/compare/master...max_games
+remote: 
+remote: . Processing 1 references
+remote: Processed 1 references in total
+To http://git.stratos.xfusioncorp.com/max/story_blog.git
+ * [new branch]      max_games -> max_games
+max (max_games)$ 
