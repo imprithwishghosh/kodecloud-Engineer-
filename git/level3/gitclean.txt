@@ -1,0 +1,21 @@
+    Task
+
+59:16
+
+The Nautilus application development team was working on a git repository /usr/src/kodekloudrepos/games present on Storage server in Stratos DC. One of the developers mistakenly created a couple of files under this repository, but now they want to clean this repository without adding/pushing any new files. Find below more details:
+
+
+Clean the /usr/src/kodekloudrepos/games git repository without adding/pushing any new files, make sure git status is clean.
+language Details of all Users and Servers
+menu
+open_in_new
+
+    Terminal 1
+
+
+solution :
+ssh into server
+sudo su
+git reset --hard HEAD
+git clean -fd
+git status
