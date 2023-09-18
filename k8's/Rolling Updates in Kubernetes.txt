@@ -1,0 +1,37 @@
+We have an application running on Kubernetes cluster using nginx web server. The Nautilus application development team has pushed some of the latest changes and those changes need be deployed. The Nautilus DevOps team has created an image nginx:1.19 with the latest changes.
+
+Perform a rolling update for this application and incorporate nginx:1.19 image. The deployment name is nginx-deployment
+
+Make sure all pods are up and running after the update.
+
+Note: The kubectl utility on jump_host has been configured to work with the kubernetes cluster.
+
+solution ::
+  vi nginx-deployment.yml 
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx
+spec:
+  replicas: 3
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 2
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+        - name: nginx
+          image: nginx:1.19
+ kubectl apply -f nginx-deployment.ymldeployment.apps/nginx created
+ kubectl get pods
+
+ kubectl set image deployment nginx nginx=nginx:1.19 --record=true
+ kubectl get pods kubectl get deployments
