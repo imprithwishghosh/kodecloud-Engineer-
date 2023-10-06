@@ -1,0 +1,56 @@
+The Nautilus security team performed an audit on all servers present in Stratos DC. During the audit some critical data/files were identified which were having the wrong permissions as per security standards. Once the report was shared with the production support team, they started fixing the issues one by one. It has been identified that one of the files named /etc/hostname on Nautilus App 2 server has wrong permissions, so that needs to be fixed and the correct ACLs needs to be set.
+
+
+1. The user owner and group owner of the file should be root user.
+
+2. Others must have read only permissions on the file.
+
+3. User siva must not have any permission on the file.
+
+4. User jerome should have read only permission on the file.
+
+
+
+solution ::
+thor@jump_host ~$ ssh steve@172.16.238.11
+The authenticity of host '172.16.238.11 (172.16.238.11)' can't be established.
+ECDSA key fingerprint is SHA256:apMDxLE4fIn/cvFId8JCZnmO069RX2PaExrihXaZoNA.
+Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
+Warning: Permanently added '172.16.238.11' (ECDSA) to the list of known hosts.
+steve@172.16.238.11's password: 
+[steve@stapp02 ~]$ sudo su
+
+We trust you have received the usual lecture from the local System
+Administrator. It usually boils down to these three things:
+
+    #1) Respect the privacy of others.
+    #2) Think before you type.
+    #3) With great power comes great responsibility.
+
+[sudo] password for steve: 
+
+
+[root@stapp02 steve]# chown root:root /etc/hostname
+[root@stapp02 steve]# chmod o+r /etc/hostname
+[root@stapp02 steve]# setfacl -m -u:siva:0 /etc/hostname
+setfacl: Option -m: Invalid argument near character 1
+[root@stapp02 steve]# setfacl -m u:siva:0 /etc/hostname
+[root@stapp02 steve]# setfacl -m u:jerome:r /etc/hostname 
+
+note : you can use in one line as well using -m command somehting like setfacl -m u:siva:0 u:jerome:r /etc/hostname
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
