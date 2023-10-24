@@ -1,0 +1,24 @@
+
+create a dockerfile for inside /node_app specify node image and install all dependencies as follows . specify the image name as ndoeapp/nautilius
+and container name as nodeapp_nautilus
+
+Solution :
+Dockerfile 
+FROM node:14
+WORKDIR /app
+COPY package.json /app
+RUN npm install
+COPY . /app
+EXPOSE 8089
+CMD ["node", "server.js"]
+root@stapp03 node_app]# docker run container --name nodeapp_nautilus -d -p 8098:5002 d8d3b4617c01
+Unable to find image 'container:latest' locally
+docker: Error response from daemon: pull access denied for container, repository does not exist or may require 'docker login': denied: requested access to the resource is denied.
+See 'docker run --help'.
+[root@stapp03 node_app]# docker run --name nodeapp_nautilus -d -p 8098:5002 d8d3b4617c01
+b18046d86a0726ccf82a987dd908a342916b390fa48cfef8c2f05632bf6a1e05
+[root@stapp03 node_app]# docker ps
+CONTAINER ID        IMAGE               COMMAND                  CREATED              STATUS              PORTS                    NAMES
+b18046d86a07        d8d3b4617c01        "docker-entrypoint.s…"   About a minute ago   Up 4 seconds        0.0.0.0:8098->5002/tcp   nodeapp_nautilus
+[root@stapp03 node_app]# curl http://localhost:8098
+Welcome to xFusionCorp Industries![root@stapp03 node_app]# 
