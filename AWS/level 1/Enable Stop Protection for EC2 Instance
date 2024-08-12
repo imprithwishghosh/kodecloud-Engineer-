@@ -1,0 +1,10 @@
+As part of the migration, there were some components added to the AWS account. Team created one of the EC2 instances where they need to make some changes now.
+
+There is an EC2 instance named nautilus-ec2 under us-east-1 region, enable the stop protection for this instance.
+
+
+
+solution :
+
+
+ec2 >> select ec2 >> action >>instance settings >> enable stop protection
