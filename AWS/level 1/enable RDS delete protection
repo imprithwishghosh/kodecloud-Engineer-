@@ -1,0 +1,10 @@
+The Nautilus DevOps team has recently deployed an RDS instance in the us-east-1 region. As this instance will be utilized for a production database, ensuring its security and protection is paramount. Upon inspection, it was discovered that delete/termination protection is not currently enabled for this instance. Consequently, the team aims to promptly enable this protection feature to prevent accidental deletion or termination of the instance.
+
+RDS instance name is nautilus-rds, also make sure changes are effective immediately.
+
+
+
+
+solution :
+
+dashboard >> rds >> let it create first >> modify >> scroll down click accidental protection
