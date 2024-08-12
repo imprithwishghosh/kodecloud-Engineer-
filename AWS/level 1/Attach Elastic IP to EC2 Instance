@@ -1,0 +1,11 @@
+The Nautilus DevOps team has been creating a couple of services on AWS cloud. They have been breaking down the migration into smaller tasks, allowing for better control, risk mitigation, and optimization of resources throughout the migration process. Recently they came up with requirements mentioned below.
+
+There is an instance named devops-ec2 and an elastic-ip named devops-ec2-eip in us-east-1 region. Attach the devops-ec2-eip elastic-ip to the devops-ec2 instance.
+
+
+
+
+
+solution :
+
+go to elastic ip >> select >> action >> associate elastic ip >> choose instance and private ip >> ok
