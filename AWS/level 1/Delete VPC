@@ -1,0 +1,9 @@
+The Nautilus DevOps team is strategically planning the migration of a portion of their infrastructure to the AWS cloud. Acknowledging the magnitude of this endeavor, they have chosen to tackle the migration incrementally rather than as a single, massive transition. They created some services in different regions and later found that some of those can be deleted now.
+
+Delete a VPC named devops-vpc present in us-east-1 region.
+
+
+solution ::
+
+
+vpc >> select vpc >> delete 
