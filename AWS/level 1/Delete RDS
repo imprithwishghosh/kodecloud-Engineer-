@@ -1,0 +1,8 @@
+The Nautilus DevOps team is currently engaged in a cleanup process, focusing on removing unnecessary data and services from their AWS account. As part of the migration process, several resources were created for one-time use only, necessitating a cleanup effort to optimize their AWS environment.
+
+Delete the RDS instance named xfusion-rds, present in us-east-1 region. Before submitting this task make sure that RDS instance is properly deleted/removed.
+
+
+solution ::
+
+rds >> db instances >> select instance >> delete
