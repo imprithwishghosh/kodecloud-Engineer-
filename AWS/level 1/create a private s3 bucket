@@ -1,0 +1,12 @@
+As part of the data migration process, the Nautilus DevOps team is actively creating several S3 buckets on AWS. They plan to utilize both private and public S3 buckets to store the relevant data. Given the ongoing migration of other infrastructure to AWS, it is logical to consolidate data storage within the AWS environment as well.
+
+Create S3 bucket with the following details:
+
+1) The name of the S3 bucket must be datacenter-s3-19404.
+
+2) The S3 bucket must block all public access, i.e it must be a private bucket.
+
+
+
+solution::
+create s3 >> name >> block all public access
