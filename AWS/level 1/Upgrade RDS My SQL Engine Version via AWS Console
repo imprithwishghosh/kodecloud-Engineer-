@@ -1,0 +1,12 @@
+The Nautilus DevOps team has recently deployed an RDS instance in the us-east-1 region to serve as a production database. To ensure the instance is equipped with the latest features and security enhancements, the team has identified that the instance is currently running MySQL version 8.0.32. In light of this, the team is eager to promptly upgrade the database engine version to the latest available version.
+
+RDS instance name is nautilus-rds, upgrade the RDS MySQL engine from v8.0.32 to v8.0.36. Also make sure the changes are effective immediately and RDS instance is in Available state.
+
+
+
+solution ::
+
+aws rds modify-db-instance \
+    --db-instance-identifier nautilus-rds \
+    --engine-version 8.0.36 \
+    --apply-immediately
