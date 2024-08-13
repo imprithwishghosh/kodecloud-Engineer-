@@ -1,0 +1,21 @@
+During the migration process, the Nautilus DevOps team deployed multiple EC2 instances across various regions. They are actively monitoring resource usage and making adjustments to optimize performance. Upon identifying an underutilized EC2 instance, they decided to change its instance type to better align with their needs. However, recent security restrictions have revoked AWS console access. Nevertheless, the team retains CLI access via the aws-client host (the landing host for this lab), allowing them to manage AWS resources effectively.
+
+1) Change the instance type from t2.micro to t2.nano for xfusion-ec2 instance through aws-cli only.
+
+2) Make sure the ec2 instance xfusion-ec2 is in running state after the change.
+
+
+
+solution ::
+
+aws ec2 describe-instances \
+    --filters "Name=tag:Name,Values=xfusion-ec2" \
+    --query 'Reservations[*].Instances[*].[InstanceId]' \
+    --output text
+
+
+aws ec2 stop-instances --instance-ids i-07a8fafbc02bdd348
+
+aws ec2 modify-instance-attribute --instance-id i-07a8fafbc02bdd348 --instance-type "{\"Value\": \"t2.nano\"}"
+
+aws ec2 start-instances --instance-ids i-07a8fafbc02bdd348
