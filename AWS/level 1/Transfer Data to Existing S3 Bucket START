@@ -1,0 +1,9 @@
+The Nautilus DevOps team is presently immersed in data migrations, transferring data from on-premise storage systems to AWS S3 buckets. They have recently received some data that they intend to copy to one of the S3 buckets.
+
+S3 bucket named devops-cp-21887 already exists. Copy the file /tmp/devops.txt to s3 bucket devops-cp-21887.
+
+
+
+solution :
+
+sudo aws s3 cp /tmp/devops.txt s3://devops-cp-21887/
