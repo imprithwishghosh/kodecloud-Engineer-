@@ -1,0 +1,29 @@
+The Nautilus DevOps team is strategizing the migration of a portion of their infrastructure to the AWS cloud. Recognizing the scale of this undertaking, they have opted to approach the migration in incremental steps rather than as a single massive transition.
+Due to recent security restrictions have revoked AWS console access. Nevertheless, the team retains CLI access via the aws-client host (the landing host for this lab), allowing them to manage AWS resources effectively.
+
+Create an EC2 instance using AWS CLI under default VPC with the following details:
+
+1) The name of the instance must be xfusion-ec2.
+
+2) You can use the ami-0cd59ecaf368e5ccf AMI to launch this instance.
+
+3) The Instance type must be t2.micro.
+
+4) Create a new RSA key pair named xfusion-kp.
+
+5) Attach the default (available by default) security group.
+
+
+
+solution ::
+
+
+aws ec2 create-key-pair --key-name xfusion-kp --query 'KeyMaterial' --output text > xfusion-kp.pem
+
+aws ec2 run-instances \
+    --image-id ami-0cd59ecaf368e5ccf \
+    --count 1 \
+    --instance-type t2.micro \
+    --key-name xfusion-kp \
+    --security-groups default \
+    --tag-specifications 'ResourceType=instance,Tags=[{Key=Name,Value=xfusion-ec2}]'
