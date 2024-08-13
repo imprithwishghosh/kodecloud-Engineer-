@@ -1,0 +1,8 @@
+When it comes to managing databases, implementing backup and restore processes is a crucial task. It's essential to ensure that a backup process is in place to safeguard data and that restoration processes are available for disaster recovery scenarios. The Nautilus team has outlined the following requirements in this regard:
+
+One RDS instance named datacenter-rds is already running in us-east-1 region, take a snapshot of this RDS instance and name it as datacenter-rds-snapshot.
+
+
+
+solution::
+select rds >> action >> take snapshot >> name it 
