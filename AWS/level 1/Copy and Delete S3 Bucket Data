@@ -1,0 +1,20 @@
+The Nautilus DevOps team is currently engaged in a cleanup process, focusing on removing unnecessary data and services from their AWS account. As part of the migration process, several resources were created for one-time use only, necessitating a cleanup effort to optimize their AWS environment.
+
+A s3 bucket named datacenter-bck-23223 already exists.
+
+1) Copy the contents of datacenter-bck-23223 s3 bucket to /opt directory on aws-client host (the landing host once you load this lab).
+
+2) Delete the s3 bucket datacenter-bck-23223.
+
+
+
+
+
+
+solution ::
+
+
+sudo aws s3 cp s3://datacenter-bck-23223/datacenter.txt .
+
+
+delete bucket : aws s3 rm bucket_name
