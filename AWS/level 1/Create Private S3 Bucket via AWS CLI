@@ -1,0 +1,20 @@
+As part of the data migration process, the Nautilus DevOps team is actively creating several S3 buckets on AWS. They plan to utilize both private and public S3 buckets to store the relevant data. Given the ongoing migration of other infrastructure to AWS, it is logical to consolidate data storage within the AWS environment as well.
+Recent security restrictions have revoked AWS console access. Nevertheless, the team retains CLI access via the aws-client host (the landing host for this lab), allowing them to manage AWS resources effectively.
+
+Create a S3 bucket through aws-cli with the following details:
+
+1) The name of the S3 bucket must be xfusion-s3-32432.
+
+2) The S3 bucket must block all public access, i.e it must be a private bucket.
+
+
+
+solution ::
+
+
+aws s3api create-bucket --bucket xfusion-s3-32432 --region us-east-1
+
+
+aws s3api put-public-access-block \
+    --bucket xfusion-s3-32432 \
+    --public-access-block-configuration BlockPublicAcls=true,IgnorePublicAcls=true,BlockPublicPolicy=true,RestrictPublicBuckets=true
