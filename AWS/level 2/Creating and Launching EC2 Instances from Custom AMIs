@@ -1,0 +1,7 @@
+The Nautilus DevOps team needs to create an AMI from an existing instance for backup and scaling purposes. They have an existing EC2 instance named datacenter-ec2 and need to create an AMI named datacenter-ec2-ami from this instance. Additionally, they need to launch a new EC2 instance named datacenter-ec2-new using this AMI.
+
+solution ::
+
+select ec2 >> action >> create image >> name it and ok 
+
+launch instance >> name it >> choose ami >> my ami >> select the ami that we have created earlier >> ok 
