@@ -1,0 +1,163 @@
+The Nautilus DevOps Team has received a request from the Development Team to set up a new repository for better code management. They need a secure way to access the repository using SSH.
+
+Create a CodeCommit repository named devops-repo.
+Add the root user's SSH public key from aws-client host to the 'SSH public keys for AWS CodeCommit' of the given IAM user.
+Create an SSH config under /root/.ssh/config on aws-client host and make changes to authenticate with the created repository.
+Clone the new repository on aws-client host under /root.
+Add the contents of /root/pyapp directory to this repository, then add, commit, and push the changes to the repository. You might need to set the git user and email to commit your code, you can use any email ID and user name for that.
+
+
+
+      solution ::
+  
+
+~ on ☁️  (us-east-1) ➜  sudo su
+
+~ on ☁️  (us-east-1) ➜  cd .ssh
+  ls
+agent-environment  authorized_keys  id_rsa  id_rsa.pub
+
+~/.ssh on ☁️  (us-east-1) ➜  cat id_rsa.pub 
+ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDMhaAnO1LMIE1gFP3pmVSu9NaXdEy8CoE9ehhBFpfWY1iovTNskBkrDXT373xCzDvFTpYOrQobwxToI4O02kyqAtbUcCHpHKv1AXTXS5Z64AudMo1RshPVWCacXTNRCG5UUE+4JTa5DeyFLVi277eDKUzSu8lvJVcrsfLO4UNrxDowELOzq99w7EgfAFrqjldui5mbPgg7mhE9XHAtKhg8pTw3jDlz5CfG3A3mqqZVotivBU4lntzCPnAKlpU2bbD1WSq7IfsYEoDjBFQE6qekPC9hiFcyhIfBuZFZ4DHQGaqzVpDF60JtY0JKmenZwpdQZ6n2FN+vM5WKm10oJgBH root@aws-client
+
+~/.ssh on ☁️  (us-east-1) ➜  cd
+
+~ on ☁️  (us-east-1) ➜  cd /root/
+
+~ on ☁️  (us-east-1) ➜  ls
+gcloud-service-key.json  pyapp
+
+~ on ☁️  (us-east-1) ➜  cd .ssh
+
+~/.ssh on ☁️  (us-east-1) ➜  sudo vi /root/.ssh/config
+
+~/.ssh on ☁️  (us-east-1) ➜  sudo chmod 600 /root/.ssh/config
+
+~/.ssh on ☁️  (us-east-1) ➜  cd /root/
+
+~ on ☁️  (us-east-1) ➜  git clone ssh://git-codecommit.us-east-1.amazonaws.com/v1/repos/devops-repo
+Cloning into 'devops-repo'...
+The authenticity of host 'git-codecommit.us-east-1.amazonaws.com (52.94.229.29)' can't be established.
+RSA key fingerprint is SHA256:eLMY1j0DKA4uvDZcl/KgtIayZANwX6t8+8isPtotBoY.
+Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
+Warning: Permanently added 'git-codecommit.us-east-1.amazonaws.com,52.94.229.29' (RSA) to the list of known hosts.
+no such identity: /root/id_rsa: No such file or directory
+APKAW3MEASZA5HU7TADW@git-codecommit.us-east-1.amazonaws.com: Permission denied (publickey).
+fatal: Could not read from remote repository.
+
+Please make sure you have the correct access rights
+and the repository exists.
+
+~ on ☁️  (us-east-1) ✖ ls
+gcloud-service-key.json  pyapp
+
+~ on ☁️  (us-east-1) ➜  sudo git clone ssh://git-codecommit.us-east-1.amazonaws.com/v1/repos/devops-repo
+Cloning into 'devops-repo'...
+no such identity: /root/id_rsa: No such file or directory
+APKAW3MEASZA5HU7TADW@git-codecommit.us-east-1.amazonaws.com: Permission denied (publickey).
+fatal: Could not read from remote repository.
+
+Please make sure you have the correct access rights
+and the repository exists.
+
+~ on ☁️  (us-east-1) ✖ git clone https://git-codecommit.us-east-1.amazonaws.com/v1/repos/devops-repo
+Cloning into 'devops-repo'...
+Username for 'https://git-codecommit.us-east-1.amazonaws.com': ^C
+
+~ on ☁️  (us-east-1) ✖ ssh://git-codecommit.us-east-1.amazonaws.com/v1/repos/devops-repo 
+
+bash: ssh://git-codecommit.us-east-1.amazonaws.com/v1/repos/devops-repo: No such file or directory
+
+~ on ☁️  (us-east-1) ✖ git@ssh://git-codecommit.us-east-1.amazonaws.com/v1/repos/devops-repo
+
+bash: git@ssh://git-codecommit.us-east-1.amazonaws.com/v1/repos/devops-repo: No such file or directory
+
+~ on ☁️  (us-east-1) ✖ git clone ssh://git-codecommit.us-east-1.amazonaws.com/v1/repos/devops-repo
+
+Cloning into 'devops-repo'...
+Warning: Permanently added the RSA host key for IP address '52.94.226.180' to the list of known hosts.
+no such identity: /root/id_rsa: No such file or directory
+APKAW3MEASZA5HU7TADW@git-codecommit.us-east-1.amazonaws.com: Permission denied (publickey).
+fatal: Could not read from remote repository.
+
+Please make sure you have the correct access rights
+and the repository exists.
+
+~ on ☁️  (us-east-1) ✖ sudo git clone ssh://git-codecommit.us-east-1.amazonaws.com/v1/repos/devops-repo
+
+Cloning into 'devops-repo'...
+no such identity: /root/id_rsa: No such file or directory
+APKAW3MEASZA5HU7TADW@git-codecommit.us-east-1.amazonaws.com: Permission denied (publickey).
+fatal: Could not read from remote repository.
+
+Please make sure you have the correct access rights
+and the repository exists.
+
+~ on ☁️  (us-east-1) ✖ ls
+gcloud-service-key.json  pyapp
+
+~ on ☁️  (us-east-1) ➜  cd /root/
+
+~ on ☁️  (us-east-1) ➜  sudo git clone ssh://git-codecommit.us-east-1.amazonaws.com/v1/repos/devops-repo
+Cloning into 'devops-repo'...
+no such identity: /root/id_rsa: No such file or directory
+APKAW3MEASZA5HU7TADW@git-codecommit.us-east-1.amazonaws.com: Permission denied (publickey).
+fatal: Could not read from remote repository.
+
+Please make sure you have the correct access rights
+and the repository exists.
+
+~ on ☁️  (us-east-1) ✖ sudo vi /root/.ssh/config
+
+~ on ☁️  (us-east-1) ➜  sudo git clone ssh://git-codecommit.us-east-1.amazonaws.com/v1/repos/devops-repo
+Cloning into 'devops-repo'...
+Warning: Permanently added the RSA host key for IP address '52.94.233.146' to the list of known hosts.
+warning: You appear to have cloned an empty repository.
+
+~ on ☁️  (us-east-1) ➜  ls
+devops-repo  gcloud-service-key.json  pyapp
+
+~ on ☁️  (us-east-1) ➜  vi pyapp/
+
+~ on ☁️  (us-east-1) ➜  sudo cp -r /root/pyapp/* /root/devops-repo/
+
+~ on ☁️  (us-east-1) ➜  cd /root/devops-repo/
+
+devops-repo on  master [?] on ☁️  (us-east-1) ➜  ls
+app.py
+
+devops-repo on  master [?] on ☁️  (us-east-1) ➜  sudo git add .
+
+devops-repo on  master [+] on ☁️  (us-east-1) ➜  sudo git commit -m "Initial commit of pyapp files"
+Author identity unknown
+
+*** Please tell me who you are.
+
+Run
+
+  git config --global user.email "you@example.com"
+  git config --global user.name "Your Name"
+
+to set your account's default identity.
+Omit --global to set the identity only in this repository.
+
+fatal: unable to auto-detect email address (got 'root@aws-client.(none)')
+
+devops-repo on  master [+] on ☁️  (us-east-1) ✖ git config --global user.email "prithishghosh619@gmail.com"
+
+devops-repo on  master [+] on ☁️  (us-east-1) ➜  git config --global user.name "pg"
+
+devops-repo on  master [+] on ☁️  (us-east-1) ➜  sudo git commit -m "Initial commit of pyapp files"
+[master (root-commit) 5c21655] Initial commit of pyapp files
+ 1 file changed, 1 insertion(+)
+ create mode 100644 app.py
+
+devops-repo on  master on ☁️  (us-east-1) ➜  sudo git push origin master
+Enumerating objects: 3, done.
+Counting objects: 100% (3/3), done.
+Writing objects: 100% (3/3), 244 bytes | 244.00 KiB/s, done.
+Total 3 (delta 0), reused 0 (delta 0), pack-reused 0
+remote: Validating objects: 100%
+To ssh://git-codecommit.us-east-1.amazonaws.com/v1/repos/devops-repo
+ * [new branch]      master -> master
+      
