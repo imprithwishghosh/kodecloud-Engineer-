@@ -1,0 +1,14 @@
+The Nautilus DevOps team needs to set up a new EC2 instance that can be accessed securely from their landing host (aws-client). The instance should be of type t2.micro and named xfusion-ec2. A new SSH key should be created on the aws-client host if it doesn't already exist. This key should then be added to the authorized keys of the root user on the EC2 instance, allowing password-less SSH access from the aws-client host.
+
+
+
+solution ::
+
+
+ssh-keygen -t rsa -f dev-key
+
+ssh-add ~/.ssh/dev-key
+
+add public key to ec2 >> authorized key 
+
+ssh ec2-user@public_ip
