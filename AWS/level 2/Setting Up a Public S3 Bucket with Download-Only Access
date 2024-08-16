@@ -1,0 +1,10 @@
+he Nautilus Development Team has been tasked with setting up a publicly accessible S3 bucket for storing resources that will be used in upcoming marketing campaigns. The Marketing Team has requested that users should be able to download promotional materials but not upload any content to the bucket. This is to ensure that the content remains secure and unaltered.
+
+    Create S3 Bucket: Create a new S3 bucket named datacenter-s3-5121.
+
+    Upload Test File: Upload an empty file named datacenter.txt to the datacenter-s3-5121 bucket.
+
+    Set Bucket Policy: Configure the bucket to have public access where users can download files but not upload files.
+
+
+
