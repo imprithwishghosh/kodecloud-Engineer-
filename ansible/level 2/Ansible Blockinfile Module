@@ -1,0 +1,66 @@
+We already have an inventory file under /home/thor/ansible directory on jump host. Create a playbook.yml under /home/thor/ansible directory on jump host itself.
+
+
+Using the playbook, install httpd web server on all app servers. Additionally, make sure its service should up and running.
+
+
+Using blockinfile Ansible module add some content in /var/www/html/index.html file. Below is the content:
+
+
+Welcome to XfusionCorp!
+
+This is  Nautilus sample file, created using Ansible!
+
+Please do not modify this file manually!
+
+
+The /var/www/html/index.html file's user and group owner should be apache on all app servers.
+
+
+The /var/www/html/index.html file's permissions should be 0755 on all app servers.
+
+
+
+
+solution ::
+
+
+playbook.yml
+
+---
+- hosts: app_servers
+  become: yes
+  tasks:
+    - name: Install httpd web server
+      yum:
+        name: httpd
+        state: present
+
+    - name: Ensure httpd service is running and enabled
+      service:
+        name: httpd
+        state: started
+        enabled: yes
+
+    - name: Add content to /var/www/html/index.html
+      blockinfile:
+        path: /var/www/html/index.html
+        block: |
+          Welcome to XfusionCorp!
+
+          This is Nautilus sample file, created using Ansible!
+
+          Please do not modify this file manually!
+        owner: apache
+        group: apache
+        mode: '0755'
+
+    - name: Set ownership and permissions on /var/www/html/index.html
+      file:
+        path: /var/www/html/index.html
+        owner: apache
+        group: apache
+        mode: '0755'
+
+
+
