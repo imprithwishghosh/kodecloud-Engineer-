@@ -1,0 +1,74 @@
+We have an inventory file under /home/thor/ansible directory on jump host, which should have all the app servers added already.
+
+
+There is a zip archive /usr/src/finance/devops.zip on jump host.
+
+
+Create a playbook.yml under /home/thor/ansible/ directory on jump host itself to perform the below given tasks.
+
+
+Unzip /usr/src/finance/devops.zip archive in /opt/finance/ location on all app servers.
+
+
+Make sure the extracted data must has the respective sudo user as their user and group owner, i.e tony for app server 1, steve for app server 2, banner for app server 3.
+
+
+The extracted data permissions must be 0755
+
+
+solution ::
+
+---
+- hosts: app_servers
+  become: yes
+  tasks:
+    - name: Copy devops.zip archive to the app server
+      copy:
+        src: /usr/src/finance/devops.zip
+        dest: /tmp/devops.zip
+
+    - name: Create /opt/finance directory if it doesn't exist
+      file:
+        path: /opt/finance
+        state: directory
+        mode: '0755'
+        owner: "{{ archive_owner }}"
+        group: "{{ archive_owner }}"
+
+    - name: Unzip devops.zip into /opt/finance/ directory
+      ansible.builtin.unarchive:
+        src: /tmp/devops.zip
+        dest: /opt/finance/
+        remote_src: yes
+        owner: "{{ archive_owner }}"
+        group: "{{ archive_owner }}"
+        mode: '0755'
+
+    - name: Remove the zip file from /tmp
+      file:
+        path: /tmp/devops.zip
+        state: absent
+
+  vars:
+    archive_owner: "{{ owner_map[inventory_hostname] }}"
+
+  vars_files:
+    - "/home/thor/ansible/owner_map.yml"
+
+
+
+
+inventory :
+[app_servers]
+stapp01 ansible_host=172.16.238.10 ansible_ssh_pass=Ir0nM@n ansible_user=tony
+stapp02 ansible_host=172.16.238.11 ansible_ssh_pass=Am3ric@ ansible_user=steve
+stapp03 ansible_host=172.16.238.12 ansible_ssh_pass=BigGr33n ansible_user=banner
+
+
+owner_map.yml :
+
+
+owner_map:
+  stapp01: tony
+  stapp02: steve
+  stapp03: banner
