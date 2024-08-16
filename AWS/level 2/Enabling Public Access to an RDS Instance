@@ -1,0 +1,7 @@
+The Nautilus Development Team is preparing to collaborate with an external partner who requires access to their database for integration and testing purposes. Currently, the RDS instance named devops-rds is only accessible within the internal network. To facilitate the collaboration, the team needs to make this RDS instance publicly accessible, allowing the partner to connect remotely. This setup will ensure that the external partner can access the database on the default MySQL port 3306 without any connectivity issues.
+
+As a member of the Nautilus DevOps Team, your task is to perform the following:
+
+    Existing RDS Instance: The RDS instance devops-rds is already created.
+    Make Publicly Accessible: Make the RDS Instance devops-rds publicly accessible.
+    Default Port: Ensure the RDS instance is accessible on the default port 3306.
