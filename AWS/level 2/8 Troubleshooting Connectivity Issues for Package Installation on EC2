@@ -1,0 +1,14 @@
+The Nautilus DevOps team has encountered an issue with an EC2 instance named xfusion-ec2. They are unable to install any packages on this instance due to connectivity issues. The team needs to identify the root cause of the problem and resolve it to restore normal operations.
+
+    Investigate the connectivity issue preventing package installation on the EC2 instance xfusion-ec2.
+    Implement a solution to resolve the connectivity issue and restore package installation capabilities on the EC2 instance.
+
+Note: The SSH key required to access the EC2 instance is already created and added to the instance's authorized keys. You can find the SSH key at /root/.ssh/id_rsa on the aws-client host.
+
+
+
+
+solution ::
+
+
+go to ec2 >> sg >> select sg >> check outbound rule all traffic settings if not add that and ec2 will be able to get connected 
