@@ -27,40 +27,51 @@ solution ::
 
 playbook.yml
 
----
-- hosts: app_servers
+cat playbook.yml 
+- name: Install httpd and setup index.html
+
+  hosts: stapp01, stapp02, stapp03
+
   become: yes
+
   tasks:
-    - name: Install httpd web server
-      yum:
-        name: httpd
-        state: present
 
-    - name: Ensure httpd service is running and enabled
-      service:
-        name: httpd
-        state: started
-        enabled: yes
+     - name: Install httpd
 
-    - name: Add content to /var/www/html/index.html
-      blockinfile:
-        path: /var/www/html/index.html
-        block: |
-          Welcome to XfusionCorp!
+       package:
 
-          This is Nautilus sample file, created using Ansible!
+         name: httpd
 
-          Please do not modify this file manually!
-        owner: apache
-        group: apache
-        mode: '0755'
+         state: present
 
-    - name: Set ownership and permissions on /var/www/html/index.html
-      file:
-        path: /var/www/html/index.html
-        owner: apache
-        group: apache
-        mode: '0755'
+     - name: Start service httpd, if not started
 
+       service:
+
+         name: httpd
+
+         state: started
+
+     - name: Add content block in index.html and set permissions
+
+       blockinfile:
+
+         path: /var/www/html/index.html
+
+         create: yes
+
+         block: |
+
+           Welcome to XfusionCorp!
+
+           This is Nautilus sample file, created using Ansible!
+
+           Please do not modify this file manually!
+
+         owner: apache
+
+         group: apache
+
+         mode: "0755"
 
 
