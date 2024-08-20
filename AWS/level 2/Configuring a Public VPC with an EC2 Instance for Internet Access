@@ -1,3 +1,70 @@
 The Nautilus DevOps Team has received a request from the Networking Team to set up a new public VPC to support a set of public-facing services. This VPC will host various resources that need to be accessible over the internet. As part of this setup, you need to ensure the VPC has public subnets with automatic IP assignment for resources. Additionally, a new EC2 instance will be launched within this VPC to host public applications that require SSH access. This setup will enable the Networking Team to deploy and manage public-facing applications.
 
 Create a public VPC named xfusion-pub-vpc, and a subnet named xfusion-pub-subnet under the same, make sure public IP is being auto assigned to resources under this subnet. Further, create an EC2 instance named xfusion-pub-ec2 under this VPC. Make sure SSH port 22 is open for this instance and accessible over the internet.
+
+
+
+solution ::
+
+
+Create the Public VPC:
+
+    Open the VPC dashboard in the AWS Management Console.
+    Click on Create VPC.
+    Configure the VPC as follows:
+        Name tag: xfusion-pub-vpc
+        IPv4 CIDR block: Enter a CIDR block (e.g., 10.0.0.0/16).
+        IPv6 CIDR block: No IPv6 CIDR block.
+        Tenancy: Default.
+    Click Create VPC.
+
+Create the Public Subnet:
+
+    In the VPC dashboard, select Subnets.
+    Click on Create subnet.
+    Configure the subnet as follows:
+        Name tag: xfusion-pub-subnet
+        VPC: Select xfusion-pub-vpc.
+        Availability Zone: Choose an availability zone (e.g., us-east-1a).
+        IPv4 CIDR block: Enter a subnet CIDR block (e.g., 10.0.1.0/24).
+    Click Create subnet.
+    After the subnet is created, enable auto-assign public IPs:
+        Select the newly created subnet.
+        Click Actions > Modify auto-assign IP settings.
+        Check Enable auto-assign public IPv4 address.
+        Click Save.
+
+ Create an Internet Gateway and Attach It to the VPC:
+
+    In the VPC dashboard, select Internet Gateways.
+    Click on Create internet gateway.
+    Name it xfusion-pub-igw.
+    After creation, select the internet gateway and click Actions > Attach to VPC.
+    Select xfusion-pub-vpc and click Attach Internet Gateway.
+
+ Update the Route Table for Public Access:
+
+    In the VPC dashboard, select Route Tables.
+    Identify the route table associated with xfusion-pub-vpc.
+    Click on the route table ID, then click on the Routes tab.
+    Click Edit routes and then Add route:
+        Destination: 0.0.0.0/0
+        Target: Select the xfusion-pub-igw (internet gateway).
+    Click Save routes.
+
+ Create the EC2 Instance:
+
+    Go to the EC2 dashboard in the AWS Management Console.
+    Click Launch Instance.
+    Configure the instance as follows:
+        Name: xfusion-pub-ec2
+        AMI: Choose an appropriate Amazon Linux 2 or Ubuntu 20.04/22.04 AMI.
+        Instance type: Choose a type (e.g., t2.micro).
+        Key pair: Select an existing key pair or create a new one.
+        Network: Select xfusion-pub-vpc.
+        Subnet: Select xfusion-pub-subnet.
+        Auto-assign Public IP: This should be enabled by default.
+    Under Configure Security Group:
+        Create a new security group or use an existing one.
+        Add a rule to allow SSH (TCP, Port 22, Source 0.0.0.0/0).
+    Click Launch Instance.
